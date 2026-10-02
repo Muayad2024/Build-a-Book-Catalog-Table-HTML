@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Catalog · table</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f6f5f2 0%, #e8e6e1 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .catalog-wrapper {
+      max-width: 1000px;
+      width: 100%;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 20px 30px -10px rgba(0, 20, 30, 0.25), 0 6px 12px rgba(0, 0, 0, 0.05);
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      transition: all 0.2s;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #2e3b3b;
+      margin: 0 0 0.25rem 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    h1 span {
+      font-size: 1.8rem;
+    }
+
+    .subhead {
+      margin: 0 0 1.75rem 0.5rem;
+      color: #5d6b6b;
+      font-size: 1rem;
+      font-weight: 400;
+      border-left: 4px solid #b7c9b7;
+      padding-left: 1rem;
+    }
+
+    /* ---------- TABLE STYLES ---------- */
+    .book-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 6px;
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    /* ---------- TABLE HEAD ---------- */
+    .book-table thead tr {
+      background: #2e3b3b;
+      color: #f2f7f2;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .book-table thead th {
+      padding: 1rem 1.2rem;
+      text-align: left;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .book-table thead th:first-child {
+      border-top-left-radius: 16px;
+      border-bottom-left-radius: 16px;
+    }
+
+    .book-table thead th:last-child {
+      border-top-right-radius: 16px;
+      border-bottom-right-radius: 16px;
+    }
+
+    /* ---------- TABLE BODY ---------- */
+    .book-table tbody tr {
+      background: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.03);
+      border-radius: 12px;
+      transition: all 0.15s ease;
+    }
+
+    .book-table tbody tr:hover {
+      background: #f8fbf8;
+      box-shadow: 0 8px 16px -6px rgba(40, 60, 50, 0.12), 0 2px 4px rgba(0, 0, 0, 0.02);
+      transform: scale(1.002);
+    }
+
+    .book-table tbody td {
+      padding: 0.95rem 1.2rem;
+      border: none;
+      color: #1e2a2a;
+      font-weight: 450;
+      vertical-align: middle;
+    }
+
+    /* subtle rounded corners on each row */
+    .book-table tbody td:first-child {
+      border-top-left-radius: 12px;
+      border-bottom-left-radius: 12px;
+    }
+
+    .book-table tbody td:last-child {
+      border-top-right-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+
+    /* genre badge style – personal touch */
+    .genre-badge {
+      background: #e5efe5;
+      color: #1f4f2b;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.65rem;
+      border-radius: 30px;
+      display: inline-block;
+      letter-spacing: 0.01em;
+      text-transform: capitalize;
+      border: 1px solid #c8ddc8;
+      white-space: nowrap;
+    }
+
+    /* year style */
+    .pub-year {
+      font-weight: 500;
+      color: #2e4b3e;
+      background: #eef3ee;
+      border-radius: 20px;
+      padding: 0.15rem 0.7rem;
+      display: inline-block;
+      font-size: 0.85rem;
+      letter-spacing: 0.01em;
+    }
+
+    /* author style – slight italic */
+    .author {
+      font-style: italic;
+      font-weight: 440;
+      color: #2d3e3e;
+    }
+
+    /* ---------- TABLE FOOTER ---------- */
+    .book-table tfoot tr {
+      background: #eef2ea;
+      border-radius: 16px;
+      font-weight: 500;
+    }
+
+    .book-table tfoot td {
+      padding: 1rem 1.2rem;
+      text-align: center;
+      font-weight: 550;
+      color: #1e3a2e;
+      background: #e2ebe2;
+      border-radius: 40px;
+      letter-spacing: 0.02em;
+      font-size: 0.98rem;
+      border: 1px solid #cddccd;
+    }
+
+    /* responsive */
+    @media (max-width: 650px) {
+      .catalog-wrapper {
+        padding: 1.5rem 1rem;
+      }
+
+      .book-table {
+        font-size: 0.85rem;
+      }
+
+      .book-table thead th,
+      .book-table tbody td,
+      .book-table tfoot td {
+        padding: 0.8rem 0.8rem;
+      }
+
+      .genre-badge,
+      .pub-year {
+        font-size: 0.7rem;
+        padding: 0.15rem 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="catalog-wrapper">
+  <h1>
+    <span>📚</span> Book Catalog
+  </h1>
+  <div class="subhead">
+    a hand‑picked collection · 6 volumes
+  </div>
+
+  <!-- Table with thead, tbody, tfoot -->
+  <table class="book-table">
+    <!-- TABLE HEAD -->
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Genre</th>
+        <th>Publication Year</th>
+      </tr>
+    </thead>
+
+    <!-- TABLE BODY: 6 rows (at least five) -->
+    <tbody>
+      <!-- 1 -->
+      <tr>
+        <td><strong>The Silent Patient</strong></td>
+        <td class="author">Alex Michaelides</td>
+        <td><span class="genre-badge">Psychological Thriller</span></td>
+        <td><span class="pub-year">2019</span></td>
+      </tr>
+      <!-- 2 -->
+      <tr>
+        <td><strong>Educated</strong></td>
+        <td class="author">Tara Westover</td>
+        <td><span class="genre-badge">Memoir</span></td>
+        <td><span class="pub-year">2018</span></td>
+      </tr>
+      <!-- 3 -->
+      <tr>
+        <td><strong>Project Hail Mary</strong></td>
+        <td class="author">Andy Weir</td>
+        <td><span class="genre-badge">Science Fiction</span></td>
+        <td><span class="pub-year">2021</span></td>
+      </tr>
+      <!-- 4 -->
+      <tr>
+        <td><strong>The Vanishing Half</strong></td>
+        <td class="author">Brit Bennett</td>
+        <td><span class="genre-badge">Historical Fiction</span></td>
+        <td><span class="pub-year">2020</span></td>
+      </tr>
+      <!-- 5 -->
+      <tr>
+        <td><strong>Klara and the Sun</strong></td>
+        <td class="author">Kazuo Ishiguro</td>
+        <td><span class="genre-badge">Literary Fiction</span></td>
+        <td><span class="pub-year">2021</span></td>
+      </tr>
+      <!-- 6 (extra row, still fine) -->
+      <tr>
+        <td><strong>The Midnight Library</strong></td>
+        <td class="author">Matt Haig</td>
+        <td><span class="genre-badge">Fantasy</span></td>
+        <td><span class="pub-year">2020</span></td>
+      </tr>
+    </tbody>
+
+    <!-- TABLE FOOTER: one row, one td spanning 4 columns -->
+    <tfoot>
+      <tr>
+        <td colspan="4">
+          Total Books: 6
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+</body>
+</html>
